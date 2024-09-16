@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="4bd413a747a012109f75392f316d437c" extends="task" label="Name Card" max_length="40" name="x_58872_needit_name_card" type="collection">
+        <element label="Requester Name" mandatory="true" max_length="200" name="requester_name" reference="sys_user" type="reference"/>
+        <element label="Requester Manager" mandatory="true" max_length="32" name="requester_manager" reference="sys_user" type="reference"/>
+        <element label="Requester Phone" mandatory="true" max_length="32" name="requester_phone" type="phone_number_e164"/>
+        <element label="Requester Email" mandatory="true" max_length="200" name="requester_email" type="string"/>
+    </element>
+</database>

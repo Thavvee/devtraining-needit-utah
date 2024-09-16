@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sys_script">
+    <sys_script action="INSERT_OR_UPDATE">
+        <abort_action>false</abort_action>
+        <access>package_private</access>
+        <action_delete>false</action_delete>
+        <action_insert>true</action_insert>
+        <action_query>true</action_query>
+        <action_update>true</action_update>
+        <active>true</active>
+        <add_message>false</add_message>
+        <advanced>true</advanced>
+        <change_fields>false</change_fields>
+        <client_callable>false</client_callable>
+        <collection>x_58872_needit_name_card</collection>
+        <condition/>
+        <description/>
+        <execute_function>false</execute_function>
+        <filter_condition/>
+        <is_rest>false</is_rest>
+        <message/>
+        <name>Populate Short Description </name>
+        <order>100</order>
+        <priority>100</priority>
+        <rest_method/>
+        <rest_method_text/>
+        <rest_service/>
+        <rest_service_text/>
+        <rest_variables/>
+        <role_conditions/>
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+    // Check if the requested_by field has a value
+    if (current.requester_name) {
+        // Get the sys_id of the referenced user
+        var requesterSysId = current.requester_name;
+        
+        // Use a GlideRecord query to get the user's name and email from the sys_user table
+        var userGR = new GlideRecord('sys_user');
+        if (userGR.get(requesterSysId)) {
+            var requesterName = userGR.getDisplayValue(); // Get the user's display name
+            var requesterEmail = userGR.email; // Get the user's email
+            
+            gs.info('Requester Name: ' + requesterName);
+            gs.info('Requester Email: ' + requesterEmail);
+        } else {
+            gs.info('Unable to find the user record for sys_id: ' + requesterSysId);
+        }
+    } else {
+        gs.info('Requester Name or Email is undefined');
+    }
+    
+    // Check if the short_description field is available before using it
+	if ('short_description' in current) {
+		gs.info('The Short Description field exists.');
+		// Set the Short Description field
+		current.short_description = '[Namecard] - ' + (requesterName || 'N/A') + ' + ' + (requesterEmail || 'N/A');
+		
+		current.update();
+		gs.info('Short Description has been updated to: ' + current.short_description);
+	} else {
+		gs.info('The Short Description field does not exist.');
+	}
+
+
+})(current, previous);
+]]></script>
+        <sys_class_name>sys_script</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-09-16 17:04:37</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>3c4a74b747a812109f75392f316d4304</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>Populate Short Description </sys_name>
+        <sys_overrides/>
+        <sys_package display_value="NeedIt" source="x_58872_needit">6ead8e780f603200cd674f8ce1050ed1</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="NeedIt">6ead8e780f603200cd674f8ce1050ed1</sys_scope>
+        <sys_update_name>sys_script_3c4a74b747a812109f75392f316d4304</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-09-16 17:49:21</sys_updated_on>
+        <template/>
+        <when>after</when>
+    </sys_script>
+    <sys_translated_text action="delete_multiple" query="documentkey=3c4a74b747a812109f75392f316d4304"/>
+    <sys_es_latest_script action="INSERT_OR_UPDATE">
+        <id>3c4a74b747a812109f75392f316d4304</id>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2024-09-16 17:04:36</sys_created_on>
+        <sys_id>4bda7cb747a812109f75392f316d43b2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2024-09-16 17:04:36</sys_updated_on>
+        <table>sys_script</table>
+        <use_es_latest>true</use_es_latest>
+    </sys_es_latest_script>
+</record_update>
